@@ -241,7 +241,6 @@ class InflectorHelper
      * For detailed information see [unicode normalization forms](http://unicode.org/reports/tr15/#Normalization_Forms_Table)
      * @see http://unicode.org/reports/tr15/#Normalization_Forms_Table
      * @see transliterate()
-     * @since 2.0.7
      */
     const TRANSLITERATE_STRICT = 'Any-Latin; NFKD';
     /**
@@ -256,7 +255,6 @@ class InflectorHelper
      * For detailed information see [unicode normalization forms](http://unicode.org/reports/tr15/#Normalization_Forms_Table)
      * @see http://unicode.org/reports/tr15/#Normalization_Forms_Table
      * @see transliterate()
-     * @since 2.0.7
      */
     const TRANSLITERATE_MEDIUM = 'Any-Latin; Latin-ASCII';
     /**
@@ -272,7 +270,6 @@ class InflectorHelper
      * For detailed information see [unicode normalization forms](http://unicode.org/reports/tr15/#Normalization_Forms_Table)
      * @see http://unicode.org/reports/tr15/#Normalization_Forms_Table
      * @see transliterate()
-     * @since 2.0.7
      */
     const TRANSLITERATE_LOOSE = 'Any-Latin; Latin-ASCII; [\u0080-\uffff] remove';
 
@@ -493,7 +490,6 @@ class InflectorHelper
      * @param string|\Transliterator $transliterator either a [[\Transliterator]] or a string
      * from which a [[\Transliterator]] can be built.
      * @return string
-     * @since 2.0.7 this method is public.
      */
     public static function transliterate($string, $transliterator = null)
     {
@@ -576,7 +572,6 @@ class InflectorHelper
      * @param string $connector the string connecting words other than those connected by
      * $lastWordConnector and $twoWordsConnector
      * @return string the generated sentence
-     * @since 2.0.1
      */
     public static function sentence(array $words, $twoWordsConnector = ' and ', $lastWordConnector = null, $connector = ', ')
     {
