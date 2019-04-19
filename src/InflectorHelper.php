@@ -242,7 +242,7 @@ class InflectorHelper
      * @see http://unicode.org/reports/tr15/#Normalization_Forms_Table
      * @see transliterate()
      */
-    const TRANSLITERATE_STRICT = 'Any-Latin; NFKD';
+    public const TRANSLITERATE_STRICT = 'Any-Latin; NFKD';
     /**
      * Shortcut for `Any-Latin; Latin-ASCII` transliteration rule.
      *
@@ -256,7 +256,7 @@ class InflectorHelper
      * @see http://unicode.org/reports/tr15/#Normalization_Forms_Table
      * @see transliterate()
      */
-    const TRANSLITERATE_MEDIUM = 'Any-Latin; Latin-ASCII';
+    public const TRANSLITERATE_MEDIUM = 'Any-Latin; Latin-ASCII';
     /**
      * Shortcut for `Any-Latin; Latin-ASCII; [\u0080-\uffff] remove` transliteration rule.
      *
@@ -271,7 +271,7 @@ class InflectorHelper
      * @see http://unicode.org/reports/tr15/#Normalization_Forms_Table
      * @see transliterate()
      */
-    const TRANSLITERATE_LOOSE = 'Any-Latin; Latin-ASCII; [\u0080-\uffff] remove';
+    public const TRANSLITERATE_LOOSE = 'Any-Latin; Latin-ASCII; [\u0080-\uffff] remove';
 
     /**
      * @var mixed Either a [[\Transliterator]], or a string from which a [[\Transliterator]] can be built
@@ -288,7 +288,7 @@ class InflectorHelper
      * @param string $word the word to be pluralized
      * @return string the pluralized word
      */
-    public static function pluralize($word)
+    public static function pluralize(string $word): string
     {
         if (isset(static::$specials[$word])) {
             return static::$specials[$word];
@@ -307,7 +307,7 @@ class InflectorHelper
      * @param string $word the english word to singularize
      * @return string Singular noun.
      */
-    public static function singularize($word)
+    public static function singularize(string $word): string
     {
         $result = array_search($word, static::$specials, true);
         if ($result !== false) {
@@ -329,7 +329,7 @@ class InflectorHelper
      * @param bool $ucAll whether to set all words to uppercase
      * @return string
      */
-    public static function titleize($words, $ucAll = false)
+    public static function titleize(string $words, bool $ucAll = false): string
     {
         $words = static::humanize(static::underscore($words), $ucAll);
 
@@ -346,7 +346,7 @@ class InflectorHelper
      * @param string $word the word to CamelCase
      * @return string
      */
-    public static function camelize($word)
+    public static function camelize(string $word): string
     {
         return str_replace(' ', '', StringHelper::mb_ucwords(preg_replace('/[^\pL\pN]+/u', ' ', $word)));
     }
@@ -358,7 +358,7 @@ class InflectorHelper
      * @param bool $ucwords whether to capitalize the first letter in each word
      * @return string the resulting words
      */
-    public static function camel2words($name, $ucwords = true)
+    public static function camel2words(string $name, bool $ucwords = true): string
     {
         $label = mb_strtolower(trim(str_replace([
             '-',
@@ -378,7 +378,7 @@ class InflectorHelper
      * @param bool|string $strict whether to insert a separator between two consecutive uppercase chars, defaults to false
      * @return string the resulting ID
      */
-    public static function camel2id($name, $separator = '-', $strict = false)
+    public static function camel2id(string $name, string $separator = '-', bool $strict = false): string
     {
         $regex = $strict ? '/\p{Lu}/u' : '/(?<!\p{Lu})\p{Lu}/u';
         if ($separator === '_') {
@@ -396,7 +396,7 @@ class InflectorHelper
      * @param string $separator the character used to separate the words in the ID
      * @return string the resulting CamelCase name
      */
-    public static function id2camel($id, $separator = '-')
+    public static function id2camel(string $id, string $separator = '-'): string
     {
         return str_replace(' ', '', StringHelper::mb_ucwords(str_replace($separator, ' ', $id)));
     }
@@ -406,7 +406,7 @@ class InflectorHelper
      * @param string $words the word(s) to underscore
      * @return string
      */
-    public static function underscore($words)
+    public static function underscore(string $words): string
     {
         return mb_strtolower(preg_replace('/(?<=\\pL)(\\p{Lu})/u', '_\\1', $words));
     }
@@ -417,7 +417,7 @@ class InflectorHelper
      * @param bool $ucAll whether to set all words to uppercase or not
      * @return string
      */
-    public static function humanize($word, $ucAll = false)
+    public static function humanize(string $word, bool $ucAll = false): string
     {
         $word = str_replace('_', ' ', preg_replace('/_id$/', '', $word));
 
@@ -433,7 +433,7 @@ class InflectorHelper
      * @param string $word to lowerCamelCase
      * @return string
      */
-    public static function variablize($word)
+    public static function variablize(string $word): string
     {
         $word = static::camelize($word);
 
@@ -447,7 +447,7 @@ class InflectorHelper
      * @param string $className the class name for getting related table_name
      * @return string
      */
-    public static function tableize($className)
+    public static function tableize(string $className): string
     {
         return static::pluralize(static::underscore($className));
     }
@@ -465,11 +465,11 @@ class InflectorHelper
      * @param bool $lowercase whether to return the string in lowercase or not. Defaults to `true`.
      * @return string The converted string.
      */
-    public static function slug($string, $replacement = '-', $lowercase = true)
+    public static function slug(string $string, string $replacement = '-', bool $lowercase = true): string
     {
         $parts = explode($replacement, static::transliterate($string));
 
-        $replaced = array_map(function ($element) use ($replacement) {
+        $replaced = array_map(static function ($element) use ($replacement) {
             $element = preg_replace('/[^a-zA-Z0-9=\s—–-]+/u', '', $element);
             return preg_replace('/[=\s—–-]+/u', $replacement, $element);
         }, $parts);
@@ -486,18 +486,21 @@ class InflectorHelper
      * and removes the rest. You may customize characters map via $transliteration property
      * of the helper.
      *
+     * @noinspection PhpComposerExtensionStubsInspection
+     *
      * @param string $string input string
      * @param string|\Transliterator $transliterator either a [[\Transliterator]] or a string
      * from which a [[\Transliterator]] can be built.
      * @return string
      */
-    public static function transliterate($string, $transliterator = null)
+    public static function transliterate(string $string, $transliterator = null): string
     {
         if (static::hasIntl()) {
             if ($transliterator === null) {
                 $transliterator = static::$transliterator;
             }
 
+            /* @noinspection PhpComposerExtensionStubsInspection */
             return transliterator_transliterate($transliterator, $string);
         }
 
@@ -507,7 +510,7 @@ class InflectorHelper
     /**
      * @return bool if intl extension is loaded
      */
-    protected static function hasIntl()
+    protected static function hasIntl(): bool
     {
         return extension_loaded('intl');
     }
@@ -519,7 +522,7 @@ class InflectorHelper
      * @param string $tableName
      * @return string
      */
-    public static function classify($tableName)
+    public static function classify(string $tableName): string
     {
         return static::camelize(static::singularize($tableName));
     }
@@ -529,9 +532,9 @@ class InflectorHelper
      * @param int $number the number to get its ordinal value
      * @return string
      */
-    public static function ordinalize($number)
+    public static function ordinalize(int $number): ?string
     {
-        if (in_array($number % 100, range(11, 13))) {
+        if (in_array($number % 100, range(11, 13), true)) {
             return $number . 'th';
         }
         switch ($number % 10) {
@@ -573,7 +576,7 @@ class InflectorHelper
      * $lastWordConnector and $twoWordsConnector
      * @return string the generated sentence
      */
-    public static function sentence(array $words, $twoWordsConnector = ' and ', $lastWordConnector = null, $connector = ', ')
+    public static function sentence(array $words, ?string $twoWordsConnector = ' and ', ?string $lastWordConnector = null, string $connector = ', '): ?string
     {
         if ($lastWordConnector === null) {
             $lastWordConnector = $twoWordsConnector;
