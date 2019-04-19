@@ -7,8 +7,6 @@
 
 namespace Yii\Helpers;
 
-use yii\helpers\Yii;
-
 /**
  * BaseInflector provides concrete implementation for [[Inflector]].
  *
@@ -572,7 +570,7 @@ class InflectorHelper
      * ```
      *
      * @param array $words the words to be converted into an string
-     * @param string $twoWordsConnector the string connecting words when there are only two
+     * @param string $twoWordsConnector the string connecting words when there are only two. Default to " and "
      * @param string $lastWordConnector the string connecting the last two words. If this is null, it will
      * take the value of `$twoWordsConnector`.
      * @param string $connector the string connecting words other than those connected by
@@ -580,11 +578,8 @@ class InflectorHelper
      * @return string the generated sentence
      * @since 2.0.1
      */
-    public static function sentence(array $words, $twoWordsConnector = null, $lastWordConnector = null, $connector = ', ')
+    public static function sentence(array $words, $twoWordsConnector = ' and ', $lastWordConnector = null, $connector = ', ')
     {
-        if ($twoWordsConnector === null) {
-            $twoWordsConnector = Yii::t('yii', ' and ');
-        }
         if ($lastWordConnector === null) {
             $lastWordConnector = $twoWordsConnector;
         }
