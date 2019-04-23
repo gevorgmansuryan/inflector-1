@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace Yii\Helpers\Tests;
+namespace Yiisoft\Helpers\Tests;
 
 use PHPUnit\Framework\Constraint\Constraint;
 use yii\helpers\VarDumper;

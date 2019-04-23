@@ -5,7 +5,9 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace Yii\Helpers;
+namespace Yiisoft\Helpers;
+
+use Yiisoft\Strings\StringHelper;
 
 /**
  * BaseInflector provides concrete implementation for [[Inflector]].

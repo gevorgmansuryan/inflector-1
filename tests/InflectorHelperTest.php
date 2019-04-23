@@ -5,9 +5,9 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace Yii\Helpers\Tests;
+namespace Yiisoft\Helpers\Tests;
 
-use Yii\Helpers\InflectorHelper;
+use Yiisoft\Helpers\InflectorHelper;
 use PHPUnit\Framework\TestCase;
 
 /**

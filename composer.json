@@ -34,7 +34,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^7.2",
-        "yiisoft/string": "^3.0@dev",
+        "yiisoft/strings": "^3.0@dev",
         "ext-mbstring": "*"
     },
     "require-dev": {
@@ -45,17 +45,23 @@
     },
     "autoload": {
         "psr-4": {
-            "Yii\\Helpers\\": "src"
+            "Yiisoft\\Helpers\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Yii\\Helpers\\Tests\\": "tests"
+            "Yiisoft\\Helpers\\Tests\\": "tests"
         }
     },
     "extra": {
         "branch-alias": {
             "dev-master": "3.0.x-dev"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/yiisoft/string"
+        }
+    ]
 }
