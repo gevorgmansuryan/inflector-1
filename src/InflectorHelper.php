@@ -11,8 +11,6 @@ use Yiisoft\Strings\StringHelper;
 
 /**
  * BaseInflector provides concrete implementation for [[Inflector]].
- *
- * Do not use BaseInflector. Use [[Inflector]] instead.
  */
 class InflectorHelper
 {

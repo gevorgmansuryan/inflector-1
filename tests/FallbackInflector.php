@@ -10,7 +10,7 @@ namespace Yiisoft\Helpers\Tests;
 use Yiisoft\Helpers\InflectorHelper;
 
 /**
- * Forces Inflector::slug to use PHP even if intl is available.
+ * Forces InflectorHelper::slug to use PHP even if intl is available.
  */
 class FallbackInflector extends InflectorHelper
 {
