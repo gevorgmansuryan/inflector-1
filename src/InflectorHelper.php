@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace Yiisoft\Helpers;
+namespace Yiisoft\Inflector;
 
 use Yiisoft\Strings\StringHelper;
 

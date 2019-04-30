@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace Yiisoft\Helpers\Tests;
+namespace Yiisoft\Inflector\Tests;
 
 use PHPUnit\Framework\Constraint\Constraint;
 use yii\helpers\VarDumper;
@@ -35,7 +35,7 @@ class IsOneOfAssert extends Constraint
      */
     public function toString(): string
     {
-        $allowedValues = array_map(function ($value) {
+        $allowedValues = array_map(static function ($value) {
             return VarDumper::dumpAsString($value);
         }, $this->allowedValues);
         $expectedAsString = implode(', ', $allowedValues);

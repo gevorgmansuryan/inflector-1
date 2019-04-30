@@ -45,12 +45,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Yiisoft\\Helpers\\": "src"
+            "Yiisoft\\Inflector\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Yiisoft\\Helpers\\Tests\\": "tests"
+            "Yiisoft\\Inflector\\Tests\\": "tests"
         }
     },
     "extra": {
