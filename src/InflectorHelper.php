@@ -454,7 +454,7 @@ class InflectorHelper
 
     /**
      * Returns a string with all spaces converted to given replacement,
-     * non word characters removed and the rest of characters transliterated.
+     * non word characters removed and the rest of characters can be transliterated.
      *
      * If intl extension isn't available uses fallback that converts latin characters only
      * and removes the rest. You may customize characters map via $transliteration property
@@ -463,20 +463,21 @@ class InflectorHelper
      * @param string $string An arbitrary string to convert
      * @param string $replacement The replacement to use for spaces
      * @param bool $lowercase whether to return the string in lowercase or not. Defaults to `true`.
+     * @param bool $transliterate whether transliterate the string or not. Defaults to `true`.
      * @return string The converted string.
      */
-    public static function slug(string $string, string $replacement = '-', bool $lowercase = true): string
+    public static function slug(string $string, string $replacement = '-', bool $lowercase = true, bool $transliterate = true): string
     {
-        $parts = explode($replacement, static::transliterate($string));
+        $parts = explode($replacement, $transliterate ? static::transliterate($string) : $string);
 
         $replaced = array_map(static function ($element) use ($replacement) {
-            $element = preg_replace('/[^a-zA-Z0-9=\s—–-]+/u', '', $element);
+            $element = preg_replace('/[^\p{L}\p{Nd}\s—–-]+/u', '', $element);
             return preg_replace('/[=\s—–-]+/u', $replacement, $element);
         }, $parts);
 
         $string = trim(implode($replacement, $replaced), $replacement);
 
-        return $lowercase ? strtolower($string) : $string;
+        return $lowercase ? mb_strtolower($string) : $string;
     }
 
     /**
